@@ -23,7 +23,7 @@ class CreateTimesheetInvoice(models.TransientModel):
                 'create_uid': self._uid,
                 'write_date': datetime.now().strftime(DF),
                 'write_uid': self._uid,
-                'price_unit': timesheet_line.amount,
+                'price_unit': 123,
                 'currency_id': timesheet_line.currency_id.id,
                 'partner_id': timesheet_line.partner_id.id,
                 'company_id': timesheet_line.company_id.id,
