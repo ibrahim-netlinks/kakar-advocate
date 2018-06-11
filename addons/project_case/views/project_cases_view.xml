@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<!-- Action inherited for Create button project kanban view-->
+	<record id="project.open_create_project" model="ir.actions.act_window">
+		<field name="name">Create a Project</field>
+		<field name="res_model">project.project</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="project.edit_project"/>
+		<field name="target">current</field>
+	</record>
+	
+	<!-- Inherit the project kanban view -->
+	<record model="ir.ui.view" id="view_project_kanban_inherited">
+		<field name="name">project.project.kanban.inherited</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.view_project_kanban"/>
+		<field name="arch" type="xml">
+			
+			<xpath expr="//div[@class='o_project_kanban_boxes']/div[@class='o_project_kanban_box']" position="replace">
+				<div t-if="record.use_tasks.raw_value" class="o_project_kanban_box">
+					<a type="edit">
+					    <span class="o_value"><t t-esc="record.task_count.value"/></span>
+					    <span class="o_label"><t t-esc="record.label_tasks.value"/></span>
+					</a>
+					<a t-if="record.task_needaction_count.raw_value" class="o_needaction" name="%(project.act_project_project_2_project_task_all)d" type="action" context="{'search_default_message_needaction': 1}">
+					    <t t-esc="record.task_needaction_count.raw_value"/>
+					</a>
+				</div>
+			</xpath>
+		</field>
+	</record>
+	
+	<!-- Inherit the project form view  -->
+	<record model="ir.ui.view" id="edit_project_inherited">
+           <field name="name">edit.project.inherited</field>
+           <field name="model">project.project</field>
+           <field name="inherit_id" ref="project.edit_project"/>
+           <field name="arch" type="xml">
+           
+			<xpath expr="//field[@name='name']" position="attributes">
+				<attribute name="placeholder">Case Name</attribute>
+			</xpath>
+			
+			<xpath expr="//field[@name='name']" position="before">
+				<field name="case_ref_no" readonly="True" nolabel="True" style="color:blue;"/>
+				<br/>
+			</xpath>
+			
+			<xpath expr="//div[@name='options_active']" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</xpath>
+			
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="string">Client</attribute>
+			</xpath>
+           	
+			<xpath expr="//page[@name='settings']" position="before">
+				<page name="case_info" string="Case Info">
+					<group string="Information">
+						<field name="case_category_id"/>
+						<field name="case_budget"/>
+						<field name="start_date"/>
+					</group>
+					<group string="Description"/>
+					<field name="description"/>
+				</page>
+			</xpath>
+		</field>
+	</record>
+	
+	<!-- Serial Number Sequence -->
+	<record id="project_case_sequence" model="ir.sequence">
+	    <field name="name">CASE-</field>
+	    <field name="code">case_ref_no</field>
+	    <field name="prefix">CASE-</field>
+	    <field name="padding">6</field>
+	</record>
+	
+	<!-- Task -->
+	<record id="view_task_form2_inherited" model="ir.ui.view">
+		<field name="name">project.task.form.inherited</field>
+		<field name="model">project.task</field>
+		<field eval="2" name="priority"/>
+		<field name="inherit_id" ref="project.view_task_form2"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="readonly">True</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+</odoo>

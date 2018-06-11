@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    	<!-- Case Category Form View -->
+		<record id="case_category_view_form" model="ir.ui.view">
+			<field name="name">case.category.from.view</field>
+			<field name="model">case.category</field>
+			
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group name='general_information'>
+							<group>
+								<field name='name'/>
+								<field name="active"/>
+							</group>
+							<group>
+								<field name="sequence"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+			
+		</record>
+
+		<!-- Case Category Tree View -->
+		<record id="case_category_view_tree" model="ir.ui.view">
+		    <field name="name">case.category.tree.view</field>
+		    <field name="model">case.category</field>
+		    <field name="arch" type="xml">
+		        <tree>
+		        	<field name='name'/>
+					<field name="active"/>
+					<field name="sequence"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		
+		<!-- Action -->
+		<record id="case_category_action" model="ir.actions.act_window">
+		    <field name="name">Case Category</field>
+		    <field name="res_model">case.category</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="view_type">form</field>
+		</record>
+
+		<!-- Search -->
+		<record id="case_category_search" model="ir.ui.view" >
+		    <field name="name">case.category.search</field>
+		    <field name="model">case.category</field>
+		    <field name="arch" type="xml">
+		        <search string="Search in Archive Files">
+		          <field name="name"/>
+		      </search>
+		  </field>
+		</record>
+		
+</odoo>

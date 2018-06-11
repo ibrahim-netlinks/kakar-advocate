@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	
+	<record id="create_timesheet_invoice_form_view" model="ir.ui.view">
+		<field name="name">create.timesheet.invoice.view.form</field>
+		<field name="model">create.timesheet.invoice</field>
+		<field name="arch" type="xml">
+			<form>
+				<separator string="Timesheets"/>
+				<group>
+					<field name="timesheet_line_ids" nolabel="1" required="1" domain="[('project_id','=',context.get('project_active_id'))]"/>
+				</group>
+				<footer>
+					<button name="calc_timesheet_invoice" type="object" string="Create Invoice" class="btn btn-primary"/>
+					<button string="No" class="btn-default" special="cancel"/>
+	            </footer>
+	        </form>
+	    </field>
+	</record>
+            
+    <!--Action for  -->
+    <record id="create_timesheet_invoice_action" model="ir.actions.act_window">
+        <field name="name">Create Invoice</field>
+        <field name="res_model">create.timesheet.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+	
+</odoo>

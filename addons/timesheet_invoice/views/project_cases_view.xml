@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<!-- Inherit the project form view  -->
+	<record model="ir.ui.view" id="edit_project_inherited">
+			<field name="name">edit.project.inherited</field>
+			<field name="model">project.project</field>
+			<field name="inherit_id" ref="project.edit_project"/>
+			<field name="arch" type="xml">
+
+			<xpath expr="//button[@name='attachment_tree_view']" position="after">
+				<button  class="oe_stat_button" name="%(create_timesheet_invoice_action)d" context="{'project_active_id':active_id}"
+							type="action" icon="fa-money-bill-alt" string="Create Invoice"/>
+			</xpath>
+
+		</field>
+	</record>
+	
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<!-- Project Main Menu and Sub Menu Rename-->
+	<menuitem name="Cases (Projects)" id="project.menu_main_pm" groups="project.group_project_manager,project.group_project_user" web_icon="project,static/description/icon.png" sequence="50"/>
+	<menuitem id="project.menu_projects" name="Cases (Projects)" parent="project.menu_main_pm" sequence="1"/>
+	<menuitem action="project.open_view_project_all" id="project.menu_projects_sub_menu" name="Cases" parent="project.menu_projects" sequence="1"/>
+
+	<!-- Master Main Menu ===> Case Category -->
+	<menuitem id="master_sidebar_main_menu" parent="project.menu_main_pm" name="Master" />
+	<menuitem id="case_category_sidebar_sub_menu" action="project_case.case_category_action" parent="master_sidebar_main_menu" name="Case Category" />
+
+	<!-- Customer Menu in Cases/Projects-->
+	<menuitem id="menu_account_customer_case" name="Clients" parent="project.menu_projects" action="base.action_partner_customer_form"/>
+</odoo>

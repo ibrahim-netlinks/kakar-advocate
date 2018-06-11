@@ -1,0 +1,18 @@
+version: '2'
+services:
+  web:
+    image: odoo:10
+    depends_on:
+      - db
+    command: odoo -u all -d kakar-erp
+    ports:
+      - "8010:8069"
+    volumes:
+      - ./addons:/mnt/extra-addons
+  db:
+    image: postgres:10
+    ports:
+      - "7010:5432"
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
