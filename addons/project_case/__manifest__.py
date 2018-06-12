@@ -11,7 +11,8 @@
     'depends': [
         'base',
         'hr',
-        'project'
+        'project',
+        'timesheet_invoice'
     ],
     'description': """
 Modification in Main Project Module

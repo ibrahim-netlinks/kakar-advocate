@@ -10,7 +10,7 @@
     'summary': 'Payment according to timesheet in Project Tasks',
     'depends': [
         'base',
-        'project'
+        'project',
     ],
     'description': """
 Payment according to timesheet in Project Tasks
@@ -18,7 +18,7 @@ Payment according to timesheet in Project Tasks
     """,
     'data': [
         'wizard/create_invoice_wizard_view.xml',
-        'views/project_cases_view.xml'
+        'views/timesheet_invoice_view.xml'
     ],
     'demo': [],
     'installable': True,

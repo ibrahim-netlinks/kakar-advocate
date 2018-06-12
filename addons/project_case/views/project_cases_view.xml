@@ -33,7 +33,7 @@
 	</record>
 	
 	<!-- Inherit the project form view  -->
-	<record model="ir.ui.view" id="edit_project_inherited">
+	<record model="ir.ui.view" id="edit_project_inherited_project_case">
            <field name="name">edit.project.inherited</field>
            <field name="model">project.project</field>
            <field name="inherit_id" ref="project.edit_project"/>
@@ -67,6 +67,24 @@
 					<field name="description"/>
 				</page>
 			</xpath>
+			
+			<xpath expr="//page[@name='settings']" position="after">
+				<page name="hourly_cost" string="Cases Rates">
+					<group>
+						<field name="fee_type" required="True"/>
+<!-- 						<field name='emp_hourly_cost' attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'flat')]}" required="True"/> -->
+						<field name='flat_cost' attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'hourly')]}" required="True"/>
+					</group>
+					<separator string="Members' Cost" attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'flat')]}"/>
+					<field name="member_ids">
+						<tree editable="Top">
+							<field name="user_id"/>
+							<field name="emp_hourly_cost"/>
+						</tree>
+					</field>
+				</page>
+			</xpath>
+			
 		</field>
 	</record>
 	

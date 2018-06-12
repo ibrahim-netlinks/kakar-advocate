@@ -7,9 +7,10 @@
 		<field name="model">create.timesheet.invoice</field>
 		<field name="arch" type="xml">
 			<form>
-				<separator string="Timesheets"/>
+				<separator string="Timesheets" invisible="context.get('fee_type',False)"/>
 				<group>
-					<field name="timesheet_line_ids" nolabel="1" required="1" domain="[('project_id','=',context.get('project_active_id'))]"/>
+					<field name="timesheet_line_ids" nolabel="1" domain="[('project_id','=',context.get('project_active_id'))]"
+							invisible="context.get('fee_type',False)" required = "not context.get('fee_type',False)"/>
 				</group>
 				<footer>
 					<button name="calc_timesheet_invoice" type="object" string="Create Invoice" class="btn btn-primary"/>
