@@ -38,7 +38,28 @@
            <field name="model">project.project</field>
            <field name="inherit_id" ref="project.edit_project"/>
            <field name="arch" type="xml">
-           
+
+			   <xpath expr="//form/sheet" position="before">
+           		<header>
+           			<button name="action_draft" type="object"
+                        string="Reset to draft"
+                        states="retainer_agreement,cancel"/>
+		            <button name="action_retainer_agreement" type="object"
+	                    string="Retainer Agreement" states="draft"
+	                    class="oe_highlight"/>
+	                <button name="action_approved" type="object"
+	                    string="Approve" states="retainer_agreement"
+	                    class="oe_highlight"/>
+		            <button name="action_cancel" type="object"
+	                    string="Cancel" states="draft"
+	                    class="oe_highlight"/>
+	                <button name="action_closed" type="object"
+	                    string="Close" states="approved"
+	                    class="oe_highlight"/>
+           			<field name="state" widget="statusbar"/>
+           		</header>
+           	</xpath>
+
 			<xpath expr="//field[@name='name']" position="attributes">
 				<attribute name="placeholder">Case Name</attribute>
 			</xpath>
@@ -62,6 +83,8 @@
 						<field name="case_category_id"/>
 						<field name="case_budget"/>
 						<field name="start_date"/>
+						<field name="retainer_agreement"
+							   attrs="{'invisible':[('state', 'not in', ['retainer_agreement','approved', 'closed'])], 'required': [('state', 'in', 'retainer_agreement')]}"/>
 					</group>
 					<group string="Description"/>
 					<field name="description"/>
