@@ -9,10 +9,20 @@
 			<field name="arch" type="xml">
 
 			<xpath expr="//button[@name='attachment_tree_view']" position="after">
-				<button  class="oe_stat_button" name="%(create_timesheet_invoice_action)d" context="{'project_active_id':active_id}"
-							type="action" icon="fa-money-bill-alt" string="Create Invoice"/>
+				<button  class="oe_stat_button" name="%(create_timesheet_invoice_action)d"
+						 context="{'project_active_id':active_id}" states="approved,closed"
+						 type="action" icon="fa-money-bill-alt"
+						 string="Create Invoice"/>
 			</xpath>
-
+			<xpath expr="//button[@name='attachment_tree_view']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+			<xpath expr="//button[@name='242']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+			<xpath expr="//button[@name='toggle_active']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
 		</field>
 	</record>
 	
