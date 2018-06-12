@@ -1,4 +1,4 @@
-led / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -10,6 +10,7 @@ odoo_updater_config.json
 # C extensions
 *.so
 
+.idea/
 *.DS_Store
 # Distribution / packaging
 .Python
