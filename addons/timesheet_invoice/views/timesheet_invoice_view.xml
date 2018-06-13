@@ -17,7 +17,7 @@
 	
 	<!-- Inherit the project form view  -->
 	<record model="ir.ui.view" id="edit_project_inherited_timesheet_invoice">
-			<field name="name">edit.project.inherited</field>
+			<field name="name">edit.project.cases.inherited</field>
 			<field name="model">project.project</field>
 			<field name="inherit_id" ref="project.edit_project"/>
 			<field name="arch" type="xml">
@@ -31,8 +31,20 @@
 							type="action" icon="fas fa-money-bill" string="Create Invoice"
 							attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'hourly')]}"/>
 			</xpath>
-			
-			
+
+
+			<xpath expr="//div[@name='button_box']/button[position()=4]" position="attributes">
+				<attribute name="attrs">{'invisible':['|', ('use_tasks','=', False), ('state', '!=', 'approved'), ('state', '!=', 'closed')]}</attribute>
+			</xpath>
+
+			<xpath expr="//button[@name='attachment_tree_view']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+
+			<xpath expr="//button[@name='toggle_active']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+
 		</field>
 	</record>
 	
