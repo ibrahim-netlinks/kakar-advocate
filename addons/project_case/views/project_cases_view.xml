@@ -134,39 +134,6 @@
 		</field>
 	</record>
 
-	<!-- Inherit the timessheet_line_ids form view -->
-	<record model="ir.ui.view" id="timesheet_line_ids_view_form_inherited">
-           <field name="name">timesheet.line.ids.form.inherited</field>
-           <field name="model">account.analytic.line</field>
-           <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
-           <field name="arch" type="xml">
-			   <xpath expr="//field[@name='amount']" position="attributes">
-					<attribute name="invisible">True</attribute>
-				</xpath>
-
-				<xpath expr="//field[@name='unit_amount']" position="attributes">
-					<attribute name="string">Quantity/Hour</attribute>
-				</xpath>
-
-		</field>
-	</record>
-
-	<!-- Inherit the timessheet_line_ids tree view -->
-	<record model="ir.ui.view" id="timesheet_line_ids_view_tree_inherited">
-           <field name="name">timesheet.line.ids.tree.inherited</field>
-           <field name="model">account.analytic.line</field>
-           <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
-           <field name="arch" type="xml">
-			   <xpath expr="//field[@name='amount']" position="attributes">
-					<attribute name="invisible">True</attribute>
-				</xpath>
-
-				<xpath expr="//field[@name='unit_amount']" position="attributes">
-					<attribute name="string">Quantity/Hour</attribute>
-				</xpath>
-		</field>
-	</record>
-
 	<!-- Serial Number Sequence -->
 	<record id="project_case_sequence" model="ir.sequence">
 	    <field name="name">CASE-</field>
