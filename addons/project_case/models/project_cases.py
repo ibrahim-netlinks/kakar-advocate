@@ -23,6 +23,13 @@ class ProjectCases(models.Model):
                               ('approved', 'Approved'),
                               ('cancel', 'Cancel'),
                               ('closed', 'Closed')], string='State', default='draft')
+
+    privacy_visibility = fields.Selection([
+                                            ('on_invitation_only', 'On invitation only'),
+                                            ('visible_by_all_employees', 'Visible by all employee'),
+                                            ('visible_by_following_customers', 'Visible by following customers')],
+                                            string='Privacy visibility', default='on_invitation_only')
+
     retainer_agreement = fields.Binary('Retainer Agreement file')
 
     @api.model
