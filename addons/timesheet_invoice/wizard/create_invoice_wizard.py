@@ -10,26 +10,38 @@ class CreateTimesheetInvoice(models.TransientModel):
     timesheet_line_ids = fields.Many2many('account.analytic.line')
 
     def calc_timesheet_invoice(self):
-        invoice_line_obj = self.env['account.invoice.line']
+        context = dict(self.env.context)
+        project_obj = self.env['project.project']
+        timesheet_obj = self.env['account.analytic.line']
         invoice_account_obj = self.env['account.invoice']
-        timesheet_ids = self.timesheet_line_ids
-        partner_id = timesheet_ids[0].partner_id
-        user_id = timesheet_ids[0].user_id
+        project_id = project_obj.browse(context.get('project_active_id'))
+        flat_timesheet_id = timesheet_obj.search([('project_id','=',project_id.id)])
+        if not flat_timesheet_id:
+            raise ValidationError("At least add one timesheet for this project")
+        timesheet_ids = context.get('fee_type') and flat_timesheet_id[0] or self.timesheet_line_ids
+        partner_id = context.get('fee_type') and flat_timesheet_id[0].partner_id or timesheet_ids[0].partner_id
+        user_id = context.get('fee_type') and flat_timesheet_id[0].user_id or timesheet_ids[0].user_id
         invoice_line_vals = []
 
+        if not timesheet_ids:
+            raise ValidationError("No timesheet found for this project")
+        
+        if context.get('fee_type'):
+            timesheet_ids = timesheet_ids[0]
+        
         for timesheet_line in timesheet_ids:
             invoice_line_vals.append((0, 0, {
                 'create_date': datetime.now().strftime(DF),
                 'create_uid': self._uid,
                 'write_date': datetime.now().strftime(DF),
                 'write_uid': self._uid,
-                'price_unit': timesheet_line.amount,
+                'price_unit': context.get('fee_type') and project_id.flat_cost or timesheet_line.amount,
                 'currency_id': timesheet_line.currency_id.id,
                 'partner_id': timesheet_line.partner_id.id,
                 'company_id': timesheet_line.company_id.id,
                 'account_id': timesheet_line.account_id.id,
-                'name': timesheet_line.name,
-                'quantity': timesheet_line.unit_amount
+                'name': context.get('fee_type') and 'Fee: '+project_id.name or timesheet_line.name,
+                'quantity': context.get('fee_type') and 1 or timesheet_line.unit_amount
             }))
         return {
             'name': _('Account Invoice'),

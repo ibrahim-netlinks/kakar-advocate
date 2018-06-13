@@ -17,6 +17,7 @@ class ProjectCases(models.Model):
     # Relational Fields
     case_category_id = fields.Many2one('case.category', string='Case Category', required=True)
     user_id = fields.Many2one('res.users', string='Case Manager', default=lambda self: self.env.user)
+    member_ids = fields.One2many('project.member.costs', 'project_id', string='Members')
 
     state = fields.Selection([('draft', 'Draft'),
                               ('retainer_agreement', 'Retainer Agreement'),
