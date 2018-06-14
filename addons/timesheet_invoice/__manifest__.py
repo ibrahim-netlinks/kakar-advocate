@@ -18,7 +18,7 @@ Payment according to timesheet in Project Tasks
     """,
     'data': [
         'wizard/create_invoice_wizard_view.xml',
-        'views/timesheet_invoice_view.xml'
+        'views/timesheet_invoice_view.xml',
     ],
     'demo': [],
     'installable': True,
