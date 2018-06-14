@@ -19,7 +19,7 @@ class CreateTimesheetInvoice(models.TransientModel):
             raise ValidationError('You are only alowed to create '
                 'invoice in Approved Or Closed Stages'
             )
-        flat_timesheet_id = timesheet_obj.search([('project_id','=',project_id.id)])
+        flat_timesheet_id = timesheet_obj.search([('project_id', '=', project_id.id)])
         if not flat_timesheet_id:
             raise ValidationError("At least add one timesheet for this project")
         timesheet_ids = context.get('fee_type') and flat_timesheet_id[0] or self.timesheet_line_ids
@@ -29,10 +29,10 @@ class CreateTimesheetInvoice(models.TransientModel):
 
         if not timesheet_ids:
             raise ValidationError("No timesheet found for this project")
-        
+
         if context.get('fee_type'):
             timesheet_ids = timesheet_ids[0]
-        
+
         for timesheet_line in timesheet_ids:
             invoice_line_vals.append((0, 0, {
                 'create_date': datetime.now().strftime(DF),

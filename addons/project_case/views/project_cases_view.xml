@@ -75,6 +75,7 @@
 			
 			<xpath expr="//field[@name='partner_id']" position="attributes">
 				<attribute name="string">Client</attribute>
+				<attribute name="required">True</attribute>
 			</xpath>
 
 			<xpath expr="//field[@name='privacy_visibility']" position="replace">
@@ -88,7 +89,8 @@
 						<field name="case_budget"/>
 						<field name="start_date"/>
 						<field name="retainer_agreement"
-							   attrs="{'invisible':[('state', 'not in', ['retainer_agreement','approved', 'closed'])], 'required': [('state', 'in', 'retainer_agreement')]}"/>
+							   attrs="{'invisible':[('state', 'not in', ['retainer_agreement','approved', 'closed'])],
+							   'required': [('state', 'in', 'retainer_agreement')]}"/>
 					</group>
 					<group string="Description"/>
 					<field name="description"/>
@@ -114,7 +116,25 @@
 			
 		</field>
 	</record>
-	
+
+	<!-- Inherit the customer invoice form view -->
+	<record model="ir.ui.view" id="account_invoice_view_form_inherited">
+           <field name="name">account.invoice.form.inherited</field>
+           <field name="model">account.invoice</field>
+           <field name="inherit_id" ref="account.invoice_form"/>
+           <field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="string">Client</attribute>
+				</xpath>
+			   <xpath expr="//field[@name='product_id']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+			   <xpath expr="//field[@name='quantity']" position="attributes">
+					<attribute name="string">Quantity/Hour</attribute>
+				</xpath>
+		</field>
+	</record>
+
 	<!-- Serial Number Sequence -->
 	<record id="project_case_sequence" model="ir.sequence">
 	    <field name="name">CASE-</field>

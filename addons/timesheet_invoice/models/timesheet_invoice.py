@@ -14,7 +14,7 @@ class ProjectCases(models.Model):
     _description = "Timesheet Invoice Inherit Project"
     _inherit = 'project.project'
 
-    fee_type = fields.Selection([('hourly', 'Hourly Fee'),('flat', 'Flat Fee')], string='Fee Type')
+    fee_type = fields.Selection([('hourly', 'Hourly Fee'), ('flat', 'Flat Fee')], string='Fee Type')
     flat_cost = fields.Float('Flat Cost')
 
 
@@ -25,28 +25,23 @@ class ProjectMemberCosts(models.Model):
     user_id = fields.Many2one('res.users', string='Member')
     project_id = fields.Many2one('project.project', string='Member')
     emp_hourly_cost = fields.Float('Hourly Cost')
-    
-#     @api.model
-#     def create(self, vals):
-#         self.project_id = self.env['project.project'].search([('id', '=', self._context.get())])
+
 
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
     _description = 'Analytic Line'
     _order = 'date desc'
-    
+
     @api.model
     def create(self, vals):
         emp_obj = self.env['hr.employee']
         emp_overriden_cost_obj = self.env['project.member.costs']
         emp_cost = 0.0
         if vals.get('project_id'):
-            emp_id = emp_obj.search([('user_id','=',vals.get('user_id'))],limit=1)
-            member_id = emp_overriden_cost_obj.search([('user_id','=',vals.get('user_id'))], limit=1)
-            print "vals.get('user_id')-------------------", vals.get('user_id')
-            print "member_id-----------------------------", member_id
+            emp_id = emp_obj.search([('user_id', '=', vals.get('user_id'))], limit=1)
+            member_id = emp_overriden_cost_obj.search([('user_id', '=', vals.get('user_id'))], limit=1)
+
             if member_id:
-                print "member_id.emp_hourly_cost::::::::::::", member_id.emp_hourly_cost
                 emp_cost = member_id.emp_hourly_cost
             else:
                 emp_cost = emp_id.emp_hourly_cost
@@ -75,5 +70,3 @@ class AccountAnalyticLine(models.Model):
             vals['account_id'] = project.analytic_account_id.id
             vals['amount'] = emp_cost
         return super(AccountAnalyticLine, self).write(vals)
-
-    
