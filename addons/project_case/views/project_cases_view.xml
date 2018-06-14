@@ -76,6 +76,10 @@
 			<xpath expr="//field[@name='partner_id']" position="attributes">
 				<attribute name="string">Client</attribute>
 			</xpath>
+
+			<xpath expr="//field[@name='privacy_visibility']" position="replace">
+				<field name="privacy_visibility" widget="radio" required="True" invisible="True"/>
+			</xpath>
            	
 			<xpath expr="//page[@name='settings']" position="before">
 				<page name="case_info" string="Case Info">
