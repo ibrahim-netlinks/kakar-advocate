@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
-from openerp.exceptions import ValidationError,UserError
+from openerp.exceptions import ValidationError, UserError
 
 
 class HrEmployee(models.Model):
@@ -58,8 +58,8 @@ class AccountAnalyticLine(models.Model):
         emp_overriden_cost_obj = self.env['project.member.costs']
         emp_cost = 0.0
         if vals.get('project_id'):
-            emp_id = emp_obj.search([('user_id','=',vals.get('user_id'))],limit=1)
-            member_id = emp_overriden_cost_obj.search([('user_id','=',vals.get('user_id'))], limit=1)
+            emp_id = emp_obj.search([('user_id', '=', vals.get('user_id'))], limit=1)
+            member_id = emp_overriden_cost_obj.search([('user_id', '=', vals.get('user_id'))], limit=1)
             if member_id:
                 emp_cost = member_id.emp_hourly_cost
             else:
