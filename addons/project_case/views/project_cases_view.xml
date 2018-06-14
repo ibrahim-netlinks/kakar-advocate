@@ -77,7 +77,6 @@
 				<attribute name="string">Client</attribute>
 				<attribute name="required">True</attribute>
 			</xpath>
-
 			<xpath expr="//field[@name='privacy_visibility']" position="replace">
 				<field name="privacy_visibility" widget="radio" required="True" invisible="True"/>
 			</xpath>

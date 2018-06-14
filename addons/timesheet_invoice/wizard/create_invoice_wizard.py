@@ -17,8 +17,8 @@ class CreateTimesheetInvoice(models.TransientModel):
         project_id = project_obj.browse(context.get('project_active_id'))
         if project_id.state not in ['approved', 'closed']:
             raise ValidationError('You are only alowed to create '
-                                  'invoice in Approved Or Closed Stages'
-                                  )
+                'invoice in Approved Or Closed Stages'
+            )
         flat_timesheet_id = timesheet_obj.search([('project_id', '=', project_id.id)])
         if not flat_timesheet_id:
             raise ValidationError("At least add one timesheet for this project")
