@@ -15,6 +15,10 @@ class CreateTimesheetInvoice(models.TransientModel):
         timesheet_obj = self.env['account.analytic.line']
         invoice_account_obj = self.env['account.invoice']
         project_id = project_obj.browse(context.get('project_active_id'))
+        if project_id.state not in ['approved', 'closed']:
+            raise ValidationError('You are only alowed to create '
+                'invoice in Approved Or Closed Stages'
+            )
         flat_timesheet_id = timesheet_obj.search([('project_id','=',project_id.id)])
         if not flat_timesheet_id:
             raise ValidationError("At least add one timesheet for this project")
@@ -40,7 +44,7 @@ class CreateTimesheetInvoice(models.TransientModel):
                 'partner_id': timesheet_line.partner_id.id,
                 'company_id': timesheet_line.company_id.id,
                 'account_id': timesheet_line.account_id.id,
-                'name': context.get('fee_type') and 'Fee: '+project_id.name or timesheet_line.name,
+                'name': context.get('fee_type') and 'Fee: ' + project_id.name or timesheet_line.name,
                 'quantity': context.get('fee_type') and 1 or timesheet_line.unit_amount
             }))
         return {

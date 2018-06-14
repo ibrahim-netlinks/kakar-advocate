@@ -25,7 +25,10 @@ class ProjectMemberCosts(models.Model):
     user_id = fields.Many2one('res.users', string='Member')
     project_id = fields.Many2one('project.project', string='Member')
     emp_hourly_cost = fields.Float('Hourly Cost')
-
+    
+#     @api.model
+#     def create(self, vals):
+#         self.project_id = self.env['project.project'].search([('id', '=', self._context.get())])
 
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
@@ -40,12 +43,14 @@ class AccountAnalyticLine(models.Model):
         if vals.get('project_id'):
             emp_id = emp_obj.search([('user_id','=',vals.get('user_id'))],limit=1)
             member_id = emp_overriden_cost_obj.search([('user_id','=',vals.get('user_id'))], limit=1)
-            import pdb; pdb.set_trace()
+            print "vals.get('user_id')-------------------", vals.get('user_id')
+            print "member_id-----------------------------", member_id
             if member_id:
+                print "member_id.emp_hourly_cost::::::::::::", member_id.emp_hourly_cost
                 emp_cost = member_id.emp_hourly_cost
             else:
                 emp_cost = emp_id.emp_hourly_cost
-            if not emp_cost or (not emp_id.emp_hourly_cost and not self.project_id.emp_hourly_cost):
+            if not emp_cost or (not emp_id.emp_hourly_cost and not member_id.emp_hourly_cost):
                 raise ValidationError('Please configure Employee Hourly Cost Either In Employee Profile Or In Cases (Projects)')
             project = self.env['project.project'].browse(vals.get('project_id'))
             vals['account_id'] = project.analytic_account_id.id
@@ -60,12 +65,11 @@ class AccountAnalyticLine(models.Model):
         if vals.get('project_id'):
             emp_id = emp_obj.search([('user_id','=',vals.get('user_id'))],limit=1)
             member_id = emp_overriden_cost_obj.search([('user_id','=',vals.get('user_id'))], limit=1)
-            import pdb; pdb.set_trace()
             if member_id:
                 emp_cost = member_id.emp_hourly_cost
             else:
                 emp_cost = emp_id.emp_hourly_cost
-            if not emp_cost or (not emp_id.emp_hourly_cost and not self.project_id.emp_hourly_cost):
+            if not emp_cost or (not emp_id.emp_hourly_cost and not member_id.emp_hourly_cost):
                 raise ValidationError('Please configure Employee Hourly Cost Either In Employee Profile Or In Cases (Projects)')
             project = self.env['project.project'].browse(vals.get('project_id'))
             vals['account_id'] = project.analytic_account_id.id

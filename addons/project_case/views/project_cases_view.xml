@@ -10,7 +10,7 @@
 		<field name="view_id" ref="project.edit_project"/>
 		<field name="target">current</field>
 	</record>
-	
+
 	<!-- Inherit the project kanban view -->
 	<record model="ir.ui.view" id="view_project_kanban_inherited">
 		<field name="name">project.project.kanban.inherited</field>
@@ -99,9 +99,9 @@
 						<field name='flat_cost' attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'hourly')]}" required="True"/>
 					</group>
 					<separator string="Members' Cost" attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'flat')]}"/>
-					<field name="member_ids">
+					<field name="member_ids" attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'flat')]}">
 						<tree editable="Top">
-							<field name="user_id"/>
+							<field name="user_id" required="True"/>
 							<field name="emp_hourly_cost"/>
 						</tree>
 					</field>

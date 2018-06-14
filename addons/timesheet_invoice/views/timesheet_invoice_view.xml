@@ -28,10 +28,19 @@
 							attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'flat')]}"/>
 
 				<button  class="oe_stat_button" name="%(create_timesheet_invoice_action)d" context="{'fee_type':'flat', 'project_active_id':active_id}"
-							type="action" icon="fas fa-money-bill" string="Create Invoice"
+							type="action" icon="fas fa-money-bill" string="Create Invoice" 
 							attrs="{'invisible':['|',('fee_type','=', False),('fee_type','=', 'hourly')]}"/>
 			</xpath>
 			
+			<xpath expr="//button[@name='attachment_tree_view']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+			<xpath expr="//button[@name='242']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
+			<xpath expr="//button[@name='toggle_active']" position="attributes">
+				<attribute name="states">approved,closed</attribute>
+			</xpath>
 			
 		</field>
 	</record>

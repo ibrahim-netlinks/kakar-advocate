@@ -28,7 +28,7 @@
 		    <field name="name">case.category.tree.view</field>
 		    <field name="model">case.category</field>
 		    <field name="arch" type="xml">
-		        <tree>
+		        <tree editable="Top">
 		        	<field name='name'/>
 					<field name="active"/>
 					<field name="sequence"/>

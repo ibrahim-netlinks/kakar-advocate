@@ -10,7 +10,15 @@
 				<separator string="Timesheets" invisible="context.get('fee_type',False)"/>
 				<group>
 					<field name="timesheet_line_ids" nolabel="1" domain="[('project_id','=',context.get('project_active_id'))]"
-							invisible="context.get('fee_type',False)" required = "not context.get('fee_type',False)"/>
+							invisible="context.get('fee_type',False)" required = "not context.get('fee_type',False)">
+						<tree>
+							<field name="date"/>
+							<field name="ref"/>
+							<field name="name"/>
+							<field name="account_id"/>
+							<field name="unit_amount" string="Quantity/Hours"/>
+						</tree>
+					</field>
 				</group>
 				<footer>
 					<button name="calc_timesheet_invoice" type="object" string="Create Invoice" class="btn btn-primary"/>
@@ -28,5 +36,7 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
+    
+    
 	
 </odoo>
